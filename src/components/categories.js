@@ -30,22 +30,6 @@ const Categories = ({items, level }) =>{
                         </div> 
                     } 
                 </React.Fragment>;
-            //}        
-            // else{
-            //     const CustomTag = `h${level}`;
-            //     return <React.Fragment key={item.id}>
-            //         <CustomTag 
-            //         className={`title ${active}`}
-            //         onClick={()=>OnTitleClicked(item.id)}
-            //         >
-            //             <i className="dropdown icon"></i>
-            //             {item.description}
-            //         </CustomTag>
-            //         {/* <CustomTag className={`content ${active}`}>
-            //             <p><Categories items={item.childrens} level={level+1}></Categories></p>
-            //         </CustomTag> */}
-            //     </React.Fragment>;
-            // };
         });
     
     return (
