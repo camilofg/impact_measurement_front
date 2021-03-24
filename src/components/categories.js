@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
 
-const Categories = ({items, level }) =>{
+const Categories = ({items, level, onMilestoneSelected }) =>{
     const [ activeIndex, setActiveIndex ] = useState(null);
-    const [ count, setCount ] = useState(level);
+    //const [ milestone, setMilestone ] = useState(null);
 
     const OnTitleClicked = (id) =>{
         setActiveIndex(id);
+        //setMilestone(id);
+        onMilestoneSelected(id);
     }
-    console.log("the current level is", level);
+
     if(items){
         const renderedItems = items.map((item, index) =>{
             const CustomTag = `h${level}`;
@@ -18,7 +20,7 @@ const Categories = ({items, level }) =>{
                     className={`title ${active}`}
                     onClick={()=>OnTitleClicked(item.id)}
                     >
-                        <CustomTag>
+                        <CustomTag onClick={() => {onMilestoneSelected(item.id)}}>
                             {item.description}
                         </CustomTag>
                         <i className="dropdown icon"></i>
@@ -26,7 +28,7 @@ const Categories = ({items, level }) =>{
                     {
                         item.childrens &&
                         <div className={`content ${active}`}>
-                            <Categories items={item.childrens} level={level+1}></Categories>
+                            <Categories items={item.childrens} level={level+1} ></Categories>
                         </div> 
                     } 
                 </React.Fragment>;
