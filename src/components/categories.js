@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 
 
-const Categories = ({items, level, onMilestoneSelected }) =>{
+const Categories = ({items, level, root }) =>{
     const [ activeIndex, setActiveIndex ] = useState(null);
-    //const [ milestone, setMilestone ] = useState(null);
 
     const OnTitleClicked = (id) =>{
         setActiveIndex(id);
-        //setMilestone(id);
-        onMilestoneSelected(id);
+        root.onMilestoneSelected(id);
     }
 
     if(items){
-        const renderedItems = items.map((item, index) =>{
+        const renderedItems = items.map(item =>{
             const CustomTag = `h${level}`;
             const active = item.id === activeIndex ? "active" : "";
                 return <React.Fragment key={item.id}>
@@ -20,7 +18,7 @@ const Categories = ({items, level, onMilestoneSelected }) =>{
                     className={`title ${active}`}
                     onClick={()=>OnTitleClicked(item.id)}
                     >
-                        <CustomTag onClick={() => {onMilestoneSelected(item.id)}}>
+                        <CustomTag onClick={() => {root.onMilestoneSelected(item.id)}}>
                             {item.description}
                         </CustomTag>
                         <i className="dropdown icon"></i>
@@ -28,7 +26,7 @@ const Categories = ({items, level, onMilestoneSelected }) =>{
                     {
                         item.childrens &&
                         <div className={`content ${active}`}>
-                            <Categories items={item.childrens} level={level+1} ></Categories>
+                            <Categories items={item.childrens} level={level+1} root={root}></Categories>
                         </div> 
                     } 
                 </React.Fragment>;
@@ -38,12 +36,6 @@ const Categories = ({items, level, onMilestoneSelected }) =>{
         <div className="ui styled accordion">
             {renderedItems}
         </div>
-    );
-    }
-
-    else{
-        return (
-            <div>Empty</div>
         );
     }
 }
